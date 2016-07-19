@@ -26,8 +26,7 @@ var generateRequest = function generateRequest(route, queryType, data) {
       modes: modes,
       start: data.start,
       count: data.count,
-      sizes: sizes,
-      size: data.size
+      sizes: sizes
     }),
     headers: {
       'Ocp-Apim-Subscription-Key': apiKey
@@ -58,9 +57,6 @@ var generateUrl = function generateUrl(route, data) {
     url += ('?count=' + data.count);
   }
 
-  if (data.size) {
-    url += ('?size=' + data.size)
-  }
   console.log(url);
   return url;
 }
@@ -79,7 +75,7 @@ exports.mapVarients = function mapVarients(data, callback) {
   request(generateRequest('metadata/map-variants/' + data.id, 'metadata', data), callback);
 }
 
-exports.reqPacks = function reqPacks(data, callback) {
+exports.reqPack = function reqPacks(data, callback) {
   request(generateRequest('metadata/requisition-packs/' + data.id, 'metadata', data), callback);
 }
 
@@ -95,14 +91,15 @@ exports.emblemImage = function emblemImage(data, callback) {
 
 exports.spartanImage = function spartanImage(data, callback) {
   if (['full','portrait'].indexOf(data.crop) === -1) {
-    data.crop = 'full'
+    data.crop = 'full';
   }
-  request(generateRequest('profiles/' + data.gamertag + '/spartan?crop=' + data.crop, 'profile', data), callback);
-}
 
-exports.spartanImage({gamertag: "TorpedoSkyline", crop: 'full', size: '512'}, function(err, res, body) {
-  console.log(body);
-})
+  if (!data.size) {
+    data.size = '256';
+  }
+
+  request(generateRequest('profiles/' + data.gamertag + '/spartan?crop=' + data.crop + '&size=' + data.size, 'profile', data), callback);
+}
 
 // stats
 
@@ -114,15 +111,14 @@ exports.matchesForPlayer = function matchesForPlayer(data, callback) {
   request(generateRequest('players/' + data.gamertag + '/matches', 'stats', data), callback);
 };
 
-// test this
 exports.playerLeaderboard = function playerLeaderboard(data, callback) {
   request(generateRequest('player-leaderboards/csr/' + data.seasonId + '/' + data.playlistId, 'stats', data), callback);
 }
 
-exports.postGameCampaignCarnageReport = function postCampaignCarnageReport(data, callback) {
+exports.postGameCarnageReport = function postGameCarnageReport(data, callback) {
   request(generateRequest(data.type + '/matches/' + data.matchId, 'stats', data), callback);
 }
 
-exports.serviceRecord = function arenaServiceRecord(data, callback) {
+exports.serviceRecord = function serviceRecord(data, callback) {
   request(generateRequest('servicerecords/' + data.type, 'stats', data), callback);
 };
