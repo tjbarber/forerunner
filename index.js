@@ -101,7 +101,7 @@ exports.spartanImage = function spartanImage(data, callback) {
   request(generateRequest('profiles/' + data.gamertag + '/spartan?crop=' + data.crop + '&size=' + data.size, 'profile', data), callback);
 }
 
-// stats
+// stats 
 
 exports.eventsForMatch = function eventsForMatch(data, callback) {
   request(generateRequest('matches/' + data.matchId + '/events', 'stats', data), callback);
