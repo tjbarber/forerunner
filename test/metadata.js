@@ -1,3 +1,5 @@
+'use strict';
+
 var forerunner = require('../index.js');
 
 exports.testMetadata = {
