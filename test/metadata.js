@@ -1,6 +1,7 @@
 'use strict';
 
-var forerunner = require('../index.js');
+var Forerunner = require('../index.js');
+var forerunner = new Forerunner('4826b671afa84fbbba1fdc512ab41fc1');
 
 exports.testMetadata = {
   metadata: function(test) {
