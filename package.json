@@ -1,6 +1,6 @@
 {
   "name": "forerunner",
-  "version": "0.1.0",
+  "version": "0.9.0",
   "description": "A wrapper around the Halo 5 API",
   "main": "index.js",
   "scripts": {
@@ -12,7 +12,7 @@
   "author": "TJ Barber",
   "license": "ISC",
   "dependencies": {
-    "request": "2.73.0"
+    "request": "^2.73.0"
   },
   "devDependencies": {
     "nodeunit": "^0.9.1"
